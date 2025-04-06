@@ -39,7 +39,7 @@ const App = () => {
     <View style={{flex: 1}}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        style={{width: '100%', height: 300}}
+        style={{width: '100%', height: '100%'}}
         region={{
           latitude: 37.78825,
           longitude: -122.4324,
