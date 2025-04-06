@@ -1,130 +1,104 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
+  const styles = StyleSheet.create({
+    container: {
+      ...StyleSheet.absoluteFillObject,
+      height: 400,
+      width: 400,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    map: {
+      ...StyleSheet.absoluteFillObject,
+    },
+  });
+  // Sample data for the FlatList
+  // const data = [
+  //   { id: '1', title: 'Item 1', image: 'https://picsum.photos/id/10/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '2', title: 'Item 2', image: 'https://picsum.photos/id/11/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '3', title: 'Item 3', image: 'https://picsum.photos/id/12/200/300', cordinates: { lat: 100, long: 100 }},
+  //   { id: '4', title: 'Item 4', image: 'https://picsum.photos/id/13/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '5', title: 'Item 5', image: 'https://picsum.photos/id/14/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '6', title: 'Item 6', image: 'https://picsum.photos/id/15/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '7', title: 'Item 7', image: 'https://picsum.photos/id/16/200/300', cordinates: { lat: 100, long: 100 } },
+  //   { id: '8', title: 'Item 8', image: 'https://picsum.photos/id/17/200/300', cordinates: { lat: 100, long: 100 } },
+  // ];
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the reccomendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
+  // // Render item for FlatList
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.item}>
+  //     <Image source={{ uri: item.image }} style={styles.image} />
+  //     <Text style={styles.title}>{item.title}</Text>
+  //   </View>
+  // );
 
   return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
-        </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <View style={{flex: 1}}>
+      <MapView
+        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        style={{width: '100%', height: 300}}
+        region={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        }}
+       />
     </View>
+    // <SafeAreaView style={styles.container}>
+    //   <Text style={styles.header}>Horizontal Scroll List</Text>
+    //   <FlatList
+    //     data={data}
+    //     renderItem={renderItem}
+    //     keyExtractor={item => item.id}
+    //     horizontal={true}
+    //     showsHorizontalScrollIndicator={false}
+    //     contentContainerStyle={styles.listContent}
+    //   />
+    // </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    paddingTop: 20,
   },
-  sectionTitle: {
+  header: {
     fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  listContent: {
+    paddingHorizontal: 10,
+  },
+  item: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
+    marginRight: 15,
+    width: 150,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 16,
     fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
   },
 });
 
